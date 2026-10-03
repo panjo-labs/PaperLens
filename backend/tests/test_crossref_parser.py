@@ -272,3 +272,21 @@ def test_garbled_markup_is_processed_in_linear_time(field, payload):
     start = time.perf_counter()
     parse_crossref_response(envelope(work(**{field: payload})))
     assert time.perf_counter() - start < 2  # was effectively unbounded before the single-pass rewrite
+
+
+# --- markup that was entity-encoded in the source ---------------------------------------------------------------
+
+
+def test_entity_encoded_html_tags_in_an_abstract_are_removed():
+    # seen in real data: the source stores "&lt;p&gt;...&lt;/p&gt;", which decodes into literal tags
+    assert one(abstract="&lt;p&gt;Blended learning was tested.&lt;/p&gt;").abstract == "Blended learning was tested."
+
+
+def test_entity_encoded_paragraph_and_jats_tags_are_removed_from_titles_too():
+    assert one(title=["&lt;jats:p&gt;Effect of training&lt;/jats:p&gt;"]).title == "Effect of training"
+    assert one(title=["Effect of training&lt;br/&gt; in adults"]).title == "Effect of training in adults"
+
+
+def test_only_known_tags_are_removed_so_real_comparisons_survive():
+    paper = one(abstract="&lt;p&gt;Scores differed (p &lt; 0.05 and q &gt; 3).&lt;/p&gt;")
+    assert paper.abstract == "Scores differed (p < 0.05 and q > 3)."

@@ -27,6 +27,11 @@ SOURCE = "crossref"
 # scanning to the end of the input: matching stays linear on garbled publisher markup.
 _TAG = re.compile(r"<[^<>]*>")  # one HTML/XML tag, e.g. "<i>" or "</jats:p>"
 _TAG_SPLIT = re.compile(r"(<[^<>]*>)")  # same, but split() keeps the tags as separate pieces
+# Tags that were ENTITY-ENCODED in the source ("&lt;p&gt;"): they only become real "<p>" text after decoding, so a
+# second strip is needed. Only well-known tag names are removed, never an arbitrary "<...>" (which would eat
+# real text such as "p < 0.05 and q > 3"). Limited to paragraph/line-break/JATS tags (what real records contain);
+# inline tags such as <b> that are decoded from entities are left as the text they are.
+_ENCODED_TAG = re.compile(r"</?(?:p|br|jats:[a-z-]+)\b[^<>]*>", re.IGNORECASE)
 _WHITESPACE = re.compile(r"[ \t\r\f\v]+")  # spaces/tabs (NOT newlines: we use those as separators)
 _DOI_PREFIX = re.compile(r"^(?:https?://(?:dx\.)?doi\.org/|doi:\s*)", re.IGNORECASE)
 
@@ -94,6 +99,7 @@ def _plain_text(value: Any) -> str | None:
     if not isinstance(value, str):
         return None
     text = html.unescape(_TAG.sub("", value))  # strip tags first so decoded "&lt;" stays text
+    text = _ENCODED_TAG.sub("", text)  # then tags that only appeared after decoding
     text = _WHITESPACE.sub(" ", text).strip()
     return text or None
 
