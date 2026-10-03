@@ -100,4 +100,11 @@ class ResearchOrchestrator:
             # We log the details but show users only a generic message.
             logger.exception("Provider %s raised an unexpected error", provider.name)
             return [], ProviderStatus(status="error", error="unexpected error")
+        # Remember where THIS provider placed each paper (1 = its best match). This is the only
+        # place that sees every provider's original order, before deduplication and ranking
+        # shuffle things; it is kept so a future ranker can use it (see Paper.provider_ranks).
+        papers = [
+            paper.model_copy(update={"provider_ranks": {provider.name: position}})
+            for position, paper in enumerate(papers, 1)
+        ]
         return papers, ProviderStatus(status="ok", paper_count=len(papers))

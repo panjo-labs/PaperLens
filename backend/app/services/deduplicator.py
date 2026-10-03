@@ -127,7 +127,20 @@ def _merge(group: list[Paper]) -> Paper:
             "journal": next((p.journal for p in group if p.journal), None),
             "doi": next((p.doi for p in group if p.doi), None),
             "url": next((p.url for p in group if p.url), None),
+            # Each provider's original position is kept; if one provider listed the paper twice,
+            # its better (lower) position is used.
+            "provider_ranks": _merge_provider_ranks(group),
             # A score from an earlier ranking would be stale for the merged paper.
             "rank_score": None,
         }
     )
+
+
+def _merge_provider_ranks(group: list[Paper]) -> dict[str, int]:
+    """Combine {"pubmed": 3} and {"crossref": 12} into {"pubmed": 3, "crossref": 12}."""
+    merged: dict[str, int] = {}
+    for paper in group:
+        for provider, rank in paper.provider_ranks.items():
+            # keep the best (smallest) position seen for that provider
+            merged[provider] = min(rank, merged.get(provider, rank))
+    return merged

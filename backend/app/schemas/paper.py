@@ -26,6 +26,13 @@ class Paper(BaseModel):
     # need to set it, and the deduplicator extends it when it merges duplicates.
     source_ids: list[str] = Field(default_factory=list)
 
+    # Where each provider placed this paper in ITS OWN original result list (1 = the provider's
+    # best match), e.g. {"pubmed": 3, "crossref": 12}. Set by the orchestrator right after a
+    # provider returns, kept through deduplication (a merged paper has one entry per provider),
+    # and not changed by ranking. It is not used for ordering today; it exists so a future
+    # ranker can combine our score with each provider's own relevance order (rank fusion).
+    provider_ranks: dict[str, int] = Field(default_factory=dict)
+
     # Position-independent relevance score set by the ranker (higher = more lexically similar
     # to the research question). None until ranked. This is a simple word-overlap heuristic
     # for ordering results - NOT a measure of scientific relevance or quality.

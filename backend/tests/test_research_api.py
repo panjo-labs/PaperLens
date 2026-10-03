@@ -61,6 +61,7 @@ def test_research_success_shape(make_client, fake_provider):
         "source_id": "1",
         "url": "https://pubmed.ncbi.nlm.nih.gov/1/",
         "source_ids": ["pubmed:1"],  # provenance: filled in automatically
+        "provider_ranks": {"pubmed": 1},  # position in the provider's own result list
         "rank_score": 0.0,  # title "T" shares no words with the question
     }
 

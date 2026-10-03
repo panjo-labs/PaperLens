@@ -114,6 +114,15 @@ def test_question_to_combined_deduplicated_ranked_papers(client, efetch_xml, ove
     ]
     assert "crossref:10.1002/EJP.70388" not in by_id  # no separate copy left over
 
+    # each provider's ORIGINAL position survives dedup and ranking (ranking reordered the list):
+    # PubMed positions follow esearch's relevance order (RANKED_PMIDS), Crossref's follow its response order
+    assert merged["provider_ranks"] == {"pubmed": 2, "crossref": 7}  # 2nd for PubMed, 7th for Crossref
+    assert by_id["pubmed:42802597"]["provider_ranks"] == {"pubmed": 5, "crossref": 8}
+    assert by_id["pubmed:42602955"]["provider_ranks"] == {"pubmed": 1}
+    assert by_id["crossref:10.5348/100041d05pa2018ra"]["provider_ranks"] == {"crossref": 1}
+    for pmid, position in zip(RANKED_PMIDS, range(1, 6)):
+        assert by_id[f"pubmed:{pmid}"]["provider_ranks"]["pubmed"] == position
+
     # papers are ranked: scores never increase down the list, and the top paper is a best match
     scores = [p["rank_score"] for p in papers]
     assert scores == sorted(scores, reverse=True)
@@ -123,8 +132,8 @@ def test_question_to_combined_deduplicated_ranked_papers(client, efetch_xml, ove
     # every paper has the same normalized shape plus provenance and score
     assert {tuple(sorted(p)) for p in papers} == {
         (
-            "abstract", "authors", "doi", "id", "journal", "publication_date", "rank_score",
-            "source", "source_id", "source_ids", "title", "url",
+            "abstract", "authors", "doi", "id", "journal", "provider_ranks", "publication_date",
+            "rank_score", "source", "source_id", "source_ids", "title", "url",
         )
     }
     assert {p["source"] for p in papers} == {"pubmed", "crossref"}
