@@ -1,17 +1,21 @@
 import asyncio
 import logging
+import time
 from collections.abc import Callable, Sequence
 
 from app.providers.base import AcademicSearchProvider, ProviderError
 from app.schemas.paper import Paper
 from app.schemas.research import ProviderStatus, ResearchResponse
+from app.services.deduplicator import deduplicate
 from app.services.query_processor import ProcessedQuery, process_question
+from app.services.ranker import rank_papers
 
 logger = logging.getLogger(__name__)
 
 
 class ResearchOrchestrator:
-    """Runs the research workflow. Currently: question -> query -> provider search -> papers.
+    """Runs the research workflow:
+    question -> query -> provider searches (concurrent) -> deduplicate -> rank -> papers.
 
     It only knows about the generic `AcademicSearchProvider` interface, never about PubMed or
     Crossref specifically. Adding a new source = adding it to the `providers` list.
@@ -22,11 +26,15 @@ class ResearchOrchestrator:
         providers: Sequence[AcademicSearchProvider],
         query_processor: Callable[[str], ProcessedQuery] = process_question,
         provider_time_budget: float | None = None,
+        deduplicator: Callable[[Sequence[Paper]], list[Paper]] = deduplicate,
+        ranker: Callable[[str, Sequence[Paper]], list[Paper]] = rank_papers,
     ) -> None:
         self._providers = list(providers)
         self._process = query_processor
         # Max seconds ONE provider may take in total (None = no limit, used mainly in tests).
         self._budget = provider_time_budget
+        self._deduplicate = deduplicator  # merges the same paper found by several providers
+        self._rank = ranker  # orders the unique papers by relevance to the question
 
     async def research(self, question: str) -> ResearchResponse:
         """Raises InvalidQueryError if the question has no searchable terms."""
@@ -40,13 +48,28 @@ class ResearchOrchestrator:
             *(self._search_one(provider, processed.search_query) for provider in self._providers)
         )
 
-        # Step 3: combine. Papers are simply concatenated (no ranking/dedup yet), and each
-        # provider gets its own entry in `statuses` so the caller can see who worked.
-        papers: list[Paper] = []
+        # Step 3: combine. Papers are concatenated in provider order (PubMed first, so its
+        # record leads when duplicates merge), and each provider gets its own entry in
+        # `statuses` so the caller can see who worked. `paper_count` stays the RAW count
+        # returned by that provider, before duplicates are removed.
+        combined: list[Paper] = []
         statuses: dict[str, ProviderStatus] = {}
         for provider, (provider_papers, status) in zip(self._providers, outcomes):
-            papers.extend(provider_papers)
+            combined.extend(provider_papers)
             statuses[provider.name] = status
+
+        # Step 4: merge duplicates, then Step 5: order by relevance. Both are pure in-memory
+        # work (no network), so they add only a tiny delay.
+        started = time.perf_counter()
+        unique = self._deduplicate(combined)
+        papers = self._rank(processed.search_query, unique)
+        logger.info(
+            "raw=%d unique=%d (removed %d duplicates); dedup+rank took %.1f ms",
+            len(combined),
+            len(unique),
+            len(combined) - len(unique),
+            (time.perf_counter() - started) * 1000,
+        )
 
         return ResearchResponse(
             question=processed.original,

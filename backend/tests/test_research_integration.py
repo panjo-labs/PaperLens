@@ -49,11 +49,31 @@ def esearch_body(ids):
     return {"esearchresult": {"count": str(len(ids)), "idlist": ids}}
 
 
+def crossref_duplicate(doi, title):
+    """A Crossref record for a paper PubMed also returned (same DOI, written differently)."""
+    return {
+        "DOI": doi, "title": [title], "container-title": ["Crossref Journal Name"],
+        "issued": {"date-parts": [[2026, 10, 3]]}, "URL": f"https://doi.org/{doi}",
+    }
+
+
+@pytest.fixture
+def overlapping_crossref(crossref_json) -> dict:
+    """The Crossref sample plus two records that are the SAME papers as PubMed's 42806217 and
+    42802597 (DOIs differ only in letter case / a "https://doi.org/" prefix). No abstracts."""
+    body = json.loads(json.dumps(crossref_json))
+    body["message"]["items"] += [
+        crossref_duplicate("10.1002/EJP.70388", "Effectiveness, Mediators and Moderators of Remote Exercise"),
+        crossref_duplicate("https://doi.org/10.1002/nbm.70415", "Predicting Clinical Improvement in Chronic Low Back Pain"),
+    ]
+    return body
+
+
 @respx.mock
-def test_question_to_combined_papers(client, efetch_xml, crossref_json):
+def test_question_to_combined_deduplicated_ranked_papers(client, efetch_xml, overlapping_crossref):
     esearch = respx.get(ESEARCH_URL).respond(json=esearch_body(RANKED_PMIDS))
     efetch = respx.get(EFETCH_URL).respond(content=efetch_xml)
-    crossref = respx.get(WORKS_URL).respond(json=crossref_json)
+    crossref = respx.get(WORKS_URL).respond(json=overlapping_crossref)
 
     response = client.post("/research", json={"question": QUESTION})
 
@@ -73,40 +93,80 @@ def test_question_to_combined_papers(client, efetch_xml, crossref_json):
     assert crossref_params["rows"] == "20"
     assert crossref_params["mailto"] == "ops@example.org"
 
-    # combined result: PubMed first (provider order), then Crossref, each in its own relevance order
-    papers = body["papers"]
-    crossref_dois = [item["DOI"] for item in crossref_json["message"]["items"]]
-    assert [p["id"] for p in papers] == [f"pubmed:{pmid}" for pmid in RANKED_PMIDS] + [
-        f"crossref:{doi}" for doi in crossref_dois
-    ]
+    # provider_status reports what each provider RETURNED (5 + 8 raw records) ...
     assert body["provider_status"] == {
         "pubmed": {"status": "ok", "paper_count": 5, "error": None},
-        "crossref": {"status": "ok", "paper_count": 6, "error": None},
+        "crossref": {"status": "ok", "paper_count": 8, "error": None},
     }
+    # ... while `papers` holds the unique ones: 13 raw - 2 duplicates = 11.
+    papers = body["papers"]
+    assert len(papers) == 11
+    assert len({p["id"] for p in papers}) == 11
 
-    # every paper has the same normalized shape plus provenance, whichever provider it came from
+    # the two overlapping papers were merged into the PubMed record, keeping both provenances
+    by_id = {p["id"]: p for p in papers}
+    merged = by_id["pubmed:42806217"]
+    assert merged["source_ids"] == ["pubmed:42806217", "crossref:10.1002/EJP.70388"]
+    assert merged["abstract"].startswith("BACKGROUND: ")  # PubMed's abstract survived (Crossref had none)
+    assert merged["doi"] == "10.1002/ejp.70388"
+    assert by_id["pubmed:42802597"]["source_ids"] == [
+        "pubmed:42802597", "crossref:10.1002/nbm.70415",  # the parser already removed the URL prefix
+    ]
+    assert "crossref:10.1002/EJP.70388" not in by_id  # no separate copy left over
+
+    # papers are ranked: scores never increase down the list, and the top paper is a best match
+    scores = [p["rank_score"] for p in papers]
+    assert scores == sorted(scores, reverse=True)
+    assert all(0.0 <= score <= 1.0 for score in scores)
+    assert scores[0] > scores[-1]
+
+    # every paper has the same normalized shape plus provenance and score
     assert {tuple(sorted(p)) for p in papers} == {
         (
-            "abstract",
-            "authors",
-            "doi",
-            "id",
-            "journal",
-            "publication_date",
-            "source",
-            "source_id",
-            "title",
-            "url",
+            "abstract", "authors", "doi", "id", "journal", "publication_date", "rank_score",
+            "source", "source_id", "source_ids", "title", "url",
         )
     }
     assert {p["source"] for p in papers} == {"pubmed", "crossref"}
-    by_id = {p["id"]: p for p in papers}
     assert by_id["pubmed:42813137"]["doi"] is None  # missing DOI stays missing
     assert by_id["pubmed:39306741"]["abstract"] is None
     assert by_id["crossref:10.29011/2576-957x.100028"]["authors"] == []
-    assert by_id["crossref:10.29011/2576-957x.100028"]["abstract"] is None
     assert by_id["crossref:10.29011/2576-957x.100028"]["publication_date"] == "2020"
     assert "test-key" not in response.text
+
+
+@respx.mock
+def test_ranking_reorders_papers_by_match_instead_of_provider_order(client, efetch_xml, crossref_json):
+    respx.get(ESEARCH_URL).respond(json=esearch_body(RANKED_PMIDS))
+    respx.get(EFETCH_URL).respond(content=efetch_xml)
+    respx.get(WORKS_URL).respond(json=crossref_json)
+
+    papers = client.post("/research", json={"question": QUESTION}).json()["papers"]
+
+    # Without ranking the list would be PubMed's 5 papers followed by Crossref's 6.
+    assert [p["source"] for p in papers[:5]] != ["pubmed"] * 5
+    # The best match is a Crossref paper whose title AND abstract repeat the question's words
+    # (PubMed papers that match less well come after it).
+    assert papers[0]["id"] == "crossref:10.36283/pjr.zu.14.2/004"
+    assert papers[0]["rank_score"] > 0.9
+    # The paper that matches the question least is last (title shares few words, no abstract).
+    assert papers[-1]["rank_score"] == min(p["rank_score"] for p in papers)
+
+
+@respx.mock
+def test_overlapping_papers_are_merged_even_when_one_provider_returns_only_duplicates(client, efetch_xml):
+    only_duplicates = {
+        "status": "ok",
+        "message": {"items": [crossref_duplicate("10.1002/ejp.70388", "Remote exercise")]},
+    }
+    respx.get(ESEARCH_URL).respond(json=esearch_body(RANKED_PMIDS))
+    respx.get(EFETCH_URL).respond(content=efetch_xml)
+    respx.get(WORKS_URL).respond(json=only_duplicates)
+
+    body = client.post("/research", json={"question": QUESTION}).json()
+
+    assert len(body["papers"]) == 5  # the single Crossref record merged into a PubMed one
+    assert body["provider_status"]["crossref"]["paper_count"] == 1
 
 
 @respx.mock
@@ -133,6 +193,8 @@ def test_pubmed_papers_survive_a_crossref_failure(client, efetch_xml, failure, e
     assert response.status_code == 200
     body = response.json()
     assert [p["source"] for p in body["papers"]] == ["pubmed"] * 5
+    scores = [p["rank_score"] for p in body["papers"]]
+    assert scores == sorted(scores, reverse=True)  # survivors are still ranked
     assert body["provider_status"]["pubmed"]["status"] == "ok"
     assert body["provider_status"]["crossref"] == {
         "status": "error",

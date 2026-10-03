@@ -1,0 +1,365 @@
+{
+ "criteria": "A paper is relevant if it directly studies the question's intervention/exposure in the question's population or topic AND reports results (primary study, systematic review/meta-analysis, or evidence summary). Protocols, editorials, methods/measurement papers, and papers on a different condition or intervention are not relevant. Judged only within the retrieved pool, by reading title and abstract of the unranked list. This is one reviewer's judgment: please review.",
+ "questions": {
+  "q01": {
+   "relevant": [
+    {
+     "id": "pubmed:34580864",
+     "title": "Exercise therapy for chronic low back pain."
+    },
+    {
+     "id": "pubmed:38035307",
+     "title": "Exercise intervention for patients with chronic low back pain: a systematic review and network meta-analysis."
+    },
+    {
+     "id": "pubmed:35722759",
+     "title": "Best Exercise Options for Reducing Pain and Disability in Adults With Chronic Low Back Pain: Pilates, Strength, Core-Based, and Mind-Body. A Network Meta-analysis."
+    },
+    {
+     "id": "pubmed:34538747",
+     "title": "Some types of exercise are more effective than others in people with chronic low back pain: a network meta-analysis."
+    },
+    {
+     "id": "pubmed:26742533",
+     "title": "Motor control exercise for chronic non-specific low-back pain."
+    },
+    {
+     "id": "pubmed:39275840",
+     "title": "Effectiveness of Pilates compared with home-based exercises in individuals with chronic non-specific low back pain: Randomised controlled trial."
+    },
+    {
+     "id": "pubmed:31261549",
+     "title": "The effect of lumbar stabilization and walking exercises on chronic low back pain: A randomized controlled trial."
+    },
+    {
+     "id": "crossref:10.1002/14651858.cd009790",
+     "title": "Exercise therapy for chronic low back pain"
+    },
+    {
+     "id": "crossref:10.1016/j.explore.2022.08.012",
+     "title": "Exercise therapy for chronic low back pain: Summary of a Cochrane review"
+    },
+    {
+     "id": "crossref:10.1002/cca.3575",
+     "title": "For people with chronic low back pain, what are the benefits and harms of exercise therapy?"
+    }
+   ]
+  },
+  "q02": {
+   "relevant": [
+    {
+     "id": "pubmed:39686459",
+     "title": "Immediate effects of Kinesio taping on pain, proprioception, and posture in round shoulder individuals with subacromial impingement syndrome: A randomized, double-blinded controlled trial."
+    },
+    {
+     "id": "pubmed:37694348",
+     "title": "Physical and well-being effect of scapular kinesio taping combined with conventional physiotherapy in shoulder impingement syndrome: A randomized controlled study."
+    },
+    {
+     "id": "pubmed:27617500",
+     "title": "Kinesio taping or just taping in shoulder subacromial impingement syndrome? A randomized, double-blind, placebo-controlled trial."
+    },
+    {
+     "id": "pubmed:20443039",
+     "title": "Kinesio taping compared to physical therapy modalities for the treatment of shoulder impingement syndrome."
+    },
+    {
+     "id": "pubmed:31258353",
+     "title": "Comparison of the Efficacy of Conventional Physical Therapy Modalities and Kinesio Taping Treatments in Shoulder Impingement Syndrome."
+    },
+    {
+     "id": "pubmed:29111849",
+     "title": "Does taping in addition to physiotherapy improve the outcomes in subacromial impingement syndrome? A systematic review."
+    },
+    {
+     "id": "pubmed:23619543",
+     "title": "Does Kinesio taping in addition to exercise therapy improve the outcomes in subacromial impingement syndrome? A randomized, double-blind, controlled clinical trial."
+    },
+    {
+     "id": "crossref:10.33024/minh.v7i12.643",
+     "title": "Kinesio taping treatments in shoulder impingement syndrome: A systematic literature review"
+    }
+   ]
+  },
+  "q03": {
+   "relevant": [
+    {
+     "id": "pubmed:28750310",
+     "title": "Manual therapy, exercise therapy or combined treatment in the management of adult neck pain - A systematic review and meta-analysis."
+    },
+    {
+     "id": "pubmed:40019107",
+     "title": "Effectiveness of Manual Joint Mobilization Techniques in the Treatment of Nonspecific Neck Pain: Systematic Review With Meta-Analysis and Meta-Regression of Randomized Controlled Trials."
+    },
+    {
+     "id": "pubmed:37084588",
+     "title": "A systematic review and meta-analysis of randomized controlled trials of manipulative therapy for patients with chronic neck pain."
+    },
+    {
+     "id": "pubmed:28374693",
+     "title": "[Manual therapy in non-specific neck pain]."
+    },
+    {
+     "id": "pubmed:38284367",
+     "title": "Dry Needling Versus Manual Therapy for Patients With Mechanical Neck Pain: A Randomized Controlled Trial."
+    },
+    {
+     "id": "pubmed:39649564",
+     "title": "Combination of Manual Therapy and Dry Needling Effectively Improves Acute Neck Pain and Muscular Tone and Stiffness in Combat Sports Athletes: A Randomized Controlled Study."
+    }
+   ]
+  },
+  "q04": {
+   "relevant": [
+    {
+     "id": "pubmed:39780331",
+     "title": "Comparison of Therapeutic Effects of Different Rehabilitation Methods on Patients Undergoing Total Knee Arthroplasty: A Network Meta-Analysis of Randomized Controlled Trials."
+    },
+    {
+     "id": "pubmed:31026026",
+     "title": "Assessment of Outcomes of Inpatient or Clinic-Based vs Home-Based Rehabilitation After Total Knee Arthroplasty: A Systematic Review and Meta-analysis."
+    },
+    {
+     "id": "pubmed:38134064",
+     "title": "Home-based tele-rehabilitation versus hospital-based outpatient rehabilitation for pain and function after initial total knee arthroplasty: A systematic review and meta-analysis."
+    },
+    {
+     "id": "pubmed:42565815",
+     "title": "Effectiveness of Interactive Remote Rehabilitation After Total Knee Arthroplasty: Systematic Review and Meta-Analysis of Randomized Controlled Trials."
+    },
+    {
+     "id": "pubmed:33715964",
+     "title": "Effects of progressive resistance training for early postoperative fast-track total hip or knee arthroplasty: A systematic review and meta-analysis."
+    },
+    {
+     "id": "pubmed:29530519",
+     "title": "Systematic Review of Three Electrical Stimulation Techniques for Rehabilitation After Total Knee Arthroplasty."
+    },
+    {
+     "id": "crossref:10.1016/j.arth.2023.08.052",
+     "title": "High-Intensity Progressive Rehabilitation Versus Routine Rehabilitation After Total Knee Arthroplasty: A Randomized Controlled Trial"
+    },
+    {
+     "id": "pubmed:39267026",
+     "title": "Effects of lower-limb active resistance exercise on mobility, physical function, knee strength and pain intensity in patients with total knee arthroplasty: a systematic review and meta-analysis."
+    }
+   ]
+  },
+  "q05": {
+   "relevant": [
+    {
+     "id": "pubmed:32666805",
+     "title": "Effects of mindfulness meditation interventions on depression in older adults: A meta-analysis."
+    },
+    {
+     "id": "pubmed:35085023",
+     "title": "Effects of Mindfulness Meditation Intervention on Depressive Symptoms in Emerging Adults: A Systematic Review and Meta-Analysis."
+    },
+    {
+     "id": "crossref:10.3390/medicines5040119",
+     "title": "Internet Mindfulness Meditation Intervention (IMMI) Improves Depression Symptoms in Older Adults"
+    },
+    {
+     "id": "crossref:10.1371/journal.pone.0219425",
+     "title": "Mindfulness meditation and improvement in depressive symptoms among Spanish- and English speaking adults: A randomized, controlled, comparative efficacy trial"
+    },
+    {
+     "id": "pubmed:34406839",
+     "title": "Targeting Depressive Symptoms in Younger Breast Cancer Survivors: The Pathways to Wellness Randomized Controlled Trial of Mindfulness Meditation and Survivorship Education."
+    },
+    {
+     "id": "pubmed:38263131",
+     "title": "Effect of mindfulness-based stress reduction (MBSR) program on depression, emotion regulation, and sleep problems: A randomized controlled trial study on depressed elderly."
+    },
+    {
+     "id": "pubmed:38698436",
+     "title": "Mindfulness-based intervention for hypertension patients with depression and/or anxiety in the community: a randomized controlled trial."
+    },
+    {
+     "id": "pubmed:31717682",
+     "title": "Use of Meditation and Cognitive Behavioral Therapies for the Treatment of Stress, Depression and Anxiety in Students. A Systematic Review and Meta-Analysis."
+    }
+   ]
+  },
+  "q06": {
+   "relevant": [
+    {
+     "id": "pubmed:29272072",
+     "title": "The effect on glycaemic control of low-volume high-intensity interval training versus endurance training in individuals with type 2 diabetes."
+    },
+    {
+     "id": "pubmed:39910758",
+     "title": "Efficacy of high-intensity interval training in individuals with type 2 diabetes mellitus: An umbrella review of systematic reviews and meta-analyses."
+    },
+    {
+     "id": "pubmed:37454031",
+     "title": "The effect of chronic high-intensity interval training programs on glycaemic control, aerobic resistance, and body composition in type 2 diabetic patients: a meta-analysis."
+    },
+    {
+     "id": "pubmed:30097811",
+     "title": "Effectiveness of high-intensity interval training on glycemic control and cardiorespiratory fitness in patients with type 2 diabetes: a systematic review and meta-analysis."
+    },
+    {
+     "id": "pubmed:36686490",
+     "title": "The effect of low volume high-intensity interval training on metabolic and cardiorespiratory outcomes in patients with type 2 diabetes mellitus: A systematic review and meta-analysis."
+    },
+    {
+     "id": "crossref:10.1371/journal.pone.0133286",
+     "title": "High Intensity Interval Training Improves Glycaemic Control and Pancreatic β Cell Function of Type 2 Diabetes Patients"
+    },
+    {
+     "id": "crossref:10.3389/fendo.2026.1876685",
+     "title": "Effects of high-intensity interval training and moderate-intensity continuous training on type 2 diabetes mellitus: a meta-analysis and systematic review"
+    },
+    {
+     "id": "crossref:10.1080/02640414.2024.2330232",
+     "title": "Effects of high-intensity interval training and its different protocols on lipid profile and glycaemic control in type 2 diabetes: A meta-analysis"
+    }
+   ]
+  },
+  "q07": {
+   "relevant": [
+    {
+     "id": "pubmed:38157883",
+     "title": "Treating myofascial pain with dry needling: a systematic review for the best evidence-based practices in low back pain."
+    },
+    {
+     "id": "pubmed:34114639",
+     "title": "Dry Needling Versus Trigger Point Injection for Neck Pain Symptoms Associated with Myofascial Trigger Points: A Systematic Review and Meta-Analysis."
+    },
+    {
+     "id": "pubmed:32962567",
+     "title": "Comparison of dry needling and trigger point manual therapy in patients with neck and upper back myofascial pain syndrome: a systematic review and meta-analysis."
+    },
+    {
+     "id": "pubmed:30935341",
+     "title": "Dry needling versus trigger point compression of the upper trapezius: a randomized clinical trial with two-week and three-month follow-up."
+    },
+    {
+     "id": "pubmed:36231767",
+     "title": "Effectiveness of Dry Needling and Ischemic Trigger Point Compression in the Gluteus Medius in Patients with Non-Specific Low Back Pain: A Randomized Short-Term Clinical Trial."
+    },
+    {
+     "id": "pubmed:31354339",
+     "title": "Trigger point dry needling for the treatment of myofascial pain syndrome: current perspectives within a pain neuroscience paradigm."
+    },
+    {
+     "id": "crossref:10.1016/j.jpain.2014.01.478",
+     "title": "(565) Effectiveness of Dry Needling reduction myofascial trigger point pain in the trapezius muscle"
+    },
+    {
+     "id": "crossref:10.1179/1743288x11y.0000000007",
+     "title": "Effectiveness of acupuncture/dry needling for myofascial trigger point pain"
+    }
+   ]
+  },
+  "q08": {
+   "relevant": [
+    {
+     "id": "pubmed:33666347",
+     "title": "Effects of exercise on knee osteoarthritis: A systematic review."
+    },
+    {
+     "id": "pubmed:39625083",
+     "title": "Exercise for osteoarthritis of the knee."
+    },
+    {
+     "id": "pubmed:26405113",
+     "title": "Exercise for osteoarthritis of the knee: a Cochrane systematic review."
+    },
+    {
+     "id": "pubmed:25569281",
+     "title": "Exercise for osteoarthritis of the knee."
+    },
+    {
+     "id": "pubmed:40198073",
+     "title": "Yoga or Strengthening Exercise for Knee Osteoarthritis: A Randomized Clinical Trial."
+    },
+    {
+     "id": "pubmed:38317328",
+     "title": "Are the Effects of Resistance Exercise on Pain and Function in Knee and Hip Osteoarthritis Dependent on Exercise Volume, Duration, and Adherence? A Systematic Review and Meta-Analysis."
+    },
+    {
+     "id": "crossref:10.1136/eb-2013-101632",
+     "title": "Review: exercise interventions improve pain and function in people with knee osteoarthritis compared with no exercise"
+    },
+    {
+     "id": "pubmed:41258829",
+     "title": "Effect of Total Resistance Exercises and Aquatic Exercises on Pain and Function of People With Knee Osteoarthritis: A Randomized Controlled Trial."
+    }
+   ]
+  },
+  "q09": {
+   "relevant": [
+    {
+     "id": "pubmed:21075236",
+     "title": "Effects of sleep deprivation on cognition."
+    },
+    {
+     "id": "pubmed:8776790",
+     "title": "Effects of sleep deprivation on performance: a meta-analysis."
+    },
+    {
+     "id": "pubmed:19742409",
+     "title": "Neurocognitive consequences of sleep deprivation."
+    },
+    {
+     "id": "pubmed:38233280",
+     "title": "The effects of insufficient sleep and adequate sleep on cognitive function in healthy adults."
+    },
+    {
+     "id": "pubmed:22884948",
+     "title": "Deconstructing and reconstructing cognitive performance in sleep deprivation."
+    },
+    {
+     "id": "pubmed:31072557",
+     "title": "Sleep deprivation, effort allocation and performance."
+    },
+    {
+     "id": "crossref:10.2147/ndt.a930",
+     "title": "Sleep deprivation: Impact on cognitive performance"
+    },
+    {
+     "id": "crossref:10.17712/nsj.2023.2.20220108",
+     "title": "The consequences of sleep deprivation on cognitive performance"
+    }
+   ]
+  },
+  "q10": {
+   "relevant": [
+    {
+     "id": "pubmed:38347571",
+     "title": "A comparative study on the effectiveness of online and in-class team-based learning on student performance and perceptions in virtual simulation experiments."
+    },
+    {
+     "id": "pubmed:37476934",
+     "title": "Distance versus face-to-face education of gross anatomy for dental hygiene students: Perceptions and academic achievements of learners."
+    },
+    {
+     "id": "crossref:10.24059/olj.v18i1.348",
+     "title": "Comparing Student Performance in Online and Face-to-face Delivery Modalities"
+    },
+    {
+     "id": "crossref:10.24059/olj.v13i1.1675",
+     "title": "COMPARING STUDENT PERFORMANCE: ONLINE VERSUS BLENDED VERSUS FACE-TO-FACE"
+    },
+    {
+     "id": "crossref:10.1177/20427530211059625",
+     "title": "Student learning performance and satisfaction with traditional face-to-face classroom versus online learning: Evidence from teaching Statistics for Business"
+    },
+    {
+     "id": "crossref:10.5206/cjsotl-rcacea.2020.2.10681",
+     "title": "Assessing Student Performance Between Face-to-Face and Online Course Formats in a College-Level Communications Course"
+    },
+    {
+     "id": "crossref:10.1111/jcal.12258",
+     "title": "Effectiveness of learning in online academic courses compared with face‐to‐face courses in higher education"
+    },
+    {
+     "id": "crossref:10.6007/ijarped/v11-i2/13273",
+     "title": "A Comparison of Student Performance in Online and Face-To-Face Learning for Statistics Subject"
+    }
+   ]
+  }
+ }
+}

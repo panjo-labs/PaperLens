@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field, model_validator
 
 
 class Paper(BaseModel):
@@ -19,3 +19,20 @@ class Paper(BaseModel):
     source: str  # which provider returned it: "pubmed" or "crossref"
     source_id: str  # the provider's own ID (PMID for PubMed, DOI for Crossref)
     url: str | None = None
+
+    # Provenance: every provider record this paper was built from, e.g.
+    # ["pubmed:12345678", "crossref:10.1000/xyz"]. A paper that was never merged lists just
+    # itself. It is filled in automatically (see the validator below), so providers don't
+    # need to set it, and the deduplicator extends it when it merges duplicates.
+    source_ids: list[str] = Field(default_factory=list)
+
+    # Position-independent relevance score set by the ranker (higher = more lexically similar
+    # to the research question). None until ranked. This is a simple word-overlap heuristic
+    # for ordering results - NOT a measure of scientific relevance or quality.
+    rank_score: float | None = None
+
+    @model_validator(mode="after")
+    def _fill_default_source_ids(self) -> "Paper":
+        if not self.source_ids:
+            self.source_ids = [f"{self.source}:{self.source_id}"]
+        return self

@@ -1,0 +1,12 @@
+[
+  {"id": "q01", "question": "What is the effectiveness of exercise therapy for chronic low back pain?"},
+  {"id": "q02", "question": "Is kinesio taping effective for shoulder impingement syndrome?"},
+  {"id": "q03", "question": "Does manual therapy reduce pain in people with neck pain?"},
+  {"id": "q04", "question": "What does rehabilitation after total knee arthroplasty involve and how effective is it?"},
+  {"id": "q05", "question": "Does mindfulness meditation reduce symptoms of depression in adults?"},
+  {"id": "q06", "question": "What is the effect of high-intensity interval training on glycaemic control in type 2 diabetes?"},
+  {"id": "q07", "question": "Is dry needling effective for myofascial trigger point pain?"},
+  {"id": "q08", "question": "Does exercise improve pain and function in people with knee osteoarthritis?"},
+  {"id": "q09", "question": "How does sleep deprivation affect cognitive performance?"},
+  {"id": "q10", "question": "Does online learning improve student academic performance compared with face-to-face teaching?"}
+]

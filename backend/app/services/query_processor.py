@@ -22,7 +22,7 @@ from dataclasses import dataclass
 _TOKEN = re.compile(r"\w+(?:['-]\w+)*")
 
 # Words that say nothing about the *topic* ("what is the ...", "please tell me about ...").
-_STOPWORDS = frozenset(
+STOPWORDS = frozenset(
     """
     what what's which who whom whose when where why how
     is are was were be been being am do does did done can could will would should shall may might must
@@ -67,7 +67,7 @@ def process_question(question: str) -> ProcessedQuery:
     for index, token in enumerate(_TOKEN.findall(text)):
         lowered = token.lower()
         # Skip stopwords ("what", "the"...) unless it's really an acronym such as "WHO".
-        if lowered in _STOPWORDS and not _is_acronym(token, index, shouting):
+        if lowered in STOPWORDS and not _is_acronym(token, index, shouting):
             continue
         terms.append(lowered if lowered in _OPERATOR_WORDS else token)
 
