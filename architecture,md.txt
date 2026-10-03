@@ -1,0 +1,808 @@
+# Evidence-first Research Assistant Architecture
+
+## 1. Architecture Overview
+
+The application follows a layered research pipeline:
+
+```text
+┌──────────────────────────────┐
+│           Frontend           │
+│      React / Next.js         │
+└──────────────┬───────────────┘
+               │
+               │ HTTP / SSE
+               ↓
+┌──────────────────────────────┐
+│           FastAPI            │
+│        API Layer             │
+└──────────────┬───────────────┘
+               │
+               ↓
+┌──────────────────────────────┐
+│    Research Orchestrator     │
+│                              │
+│  Coordinates the workflow    │
+└──────────────┬───────────────┘
+               │
+       ┌───────┼────────┬──────────────┐
+       ↓       ↓        ↓              ↓
+   Query    Academic   Paper        Evidence
+ Processor   Search    Ranker       Extractor
+              │
+         ┌────┴─────┐
+         ↓          ↓
+      PubMed     Crossref
+               │
+               ↓
+        Research Analysis
+        ├── Comparison
+        ├── Gap Detection
+        └── Contradiction Detection
+               │
+               ↓
+        LLM Provider
+               │
+               ↓
+        Open-weight Model
+               │
+               ↓
+     Grounded Research Response
+               │
+               ↓
+          Citations
+```
+
+---
+
+## 2. Architectural Principle
+
+The architecture is **evidence-first**.
+
+The LLM should not independently determine the factual basis of an answer.
+
+Instead:
+
+```text
+Search
+  ↓
+Retrieve evidence
+  ↓
+Structure evidence
+  ↓
+Analyze evidence
+  ↓
+Generate synthesis
+  ↓
+Validate citations
+```
+
+The model is primarily responsible for interpreting and synthesizing retrieved evidence.
+
+---
+
+## 3. Frontend
+
+### Responsibility
+
+The frontend provides the user-facing research interface.
+
+Primary responsibilities:
+
+* Research question input
+* Search initiation
+* Display retrieved papers
+* Display evidence
+* Display citations
+* Display study comparisons
+* Display research gaps
+* Display conflicting findings
+* Stream generated responses
+* Allow users to inspect source papers
+
+### Suggested Technology
+
+```text
+React / Next.js
+Tailwind CSS
+```
+
+The frontend should remain relatively thin.
+
+Research logic should live in the backend rather than being duplicated in frontend code.
+
+---
+
+## 4. FastAPI Layer
+
+### Responsibility
+
+FastAPI provides the application API.
+
+Possible endpoints:
+
+```text
+POST /research
+GET  /papers/{id}
+POST /compare
+POST /synthesis
+GET  /health
+```
+
+The exact API surface may evolve during implementation.
+
+The API layer should handle:
+
+* Request validation
+* Response schemas
+* Authentication if added later
+* Streaming responses
+* HTTP error handling
+
+It should not contain complex research logic.
+
+---
+
+## 5. Research Orchestrator
+
+The Research Orchestrator is the central application service.
+
+Its responsibility is to coordinate:
+
+```text
+Query Processing
+       ↓
+Academic Search
+       ↓
+Deduplication
+       ↓
+Ranking
+       ↓
+Evidence Extraction
+       ↓
+Research Analysis
+       ↓
+LLM Synthesis
+       ↓
+Citation Validation
+```
+
+It should not become an autonomous agent system.
+
+The orchestrator should execute a predictable workflow.
+
+---
+
+## 6. Query Processor
+
+### Input
+
+Natural-language research question.
+
+Example:
+
+```text
+Does exercise therapy improve pain and function
+in people with chronic low back pain?
+```
+
+### Responsibilities
+
+* Clean the input
+* Identify the core research intent
+* Generate useful search queries
+* Preserve important terminology
+* Avoid unnecessary query expansion
+
+Possible future enhancements:
+
+* PICO-style query extraction
+* Query reformulation
+* Domain-specific terminology expansion
+
+These should not be required for the first working version.
+
+---
+
+## 7. Academic Search Layer
+
+The academic search layer abstracts external literature providers.
+
+```text
+             Academic Search
+                    │
+          ┌─────────┴─────────┐
+          ↓                   ↓
+       PubMed              Crossref
+          │                   │
+          └─────────┬─────────┘
+                    ↓
+              Normalized Papers
+```
+
+### Design requirement
+
+The rest of the application should not depend directly on PubMed or Crossref response formats.
+
+Each provider should implement a common interface.
+
+Conceptually:
+
+```python
+class AcademicSearchProvider:
+    async def search(query: str) -> list[Paper]:
+        ...
+```
+
+Provider-specific implementation details remain inside their respective modules.
+
+---
+
+## 8. PubMed
+
+PubMed is the primary initial source for health and biomedical literature.
+
+Responsibilities:
+
+* Construct PubMed queries
+* Execute API requests
+* Parse responses
+* Normalize metadata
+* Handle failures and timeouts
+
+Potential metadata:
+
+```text
+PMID
+Title
+Authors
+Abstract
+Journal
+Publication date
+DOI
+URL
+```
+
+---
+
+## 9. Crossref
+
+Crossref provides broader academic coverage.
+
+Responsibilities:
+
+* Search Crossref
+* Parse metadata
+* Normalize results
+* Handle missing fields
+* Handle API failures
+
+The Crossref implementation should produce the same internal `Paper` representation used by PubMed.
+
+---
+
+## 10. Common Paper Model
+
+A provider-independent paper model should be used throughout the system.
+
+Conceptual model:
+
+```python
+Paper:
+    id
+    title
+    authors
+    abstract
+    journal
+    publication_date
+    doi
+    source
+    source_id
+    url
+```
+
+Additional fields may be added when necessary.
+
+The internal ID should be stable within a research session.
+
+---
+
+## 11. Deduplication
+
+Multiple providers may return the same paper.
+
+Deduplication should occur before evidence extraction.
+
+Preferred order:
+
+```text
+DOI
+ ↓
+Provider-specific identifier
+ ↓
+Normalized title
+ ↓
+Additional metadata
+```
+
+The system should preserve useful metadata from duplicate records rather than arbitrarily discarding it.
+
+---
+
+## 12. Paper Ranking
+
+Ranking should prioritize papers most relevant to the user's research question.
+
+Initial ranking can use:
+
+* Query/title relevance
+* Abstract relevance
+* Metadata
+* Publication information
+* Availability of an abstract
+
+The first implementation should avoid complex machine-learning ranking systems unless evaluation demonstrates that they are required.
+
+---
+
+## 13. Evidence Extraction
+
+Evidence extraction converts papers into structured research information.
+
+Conceptual model:
+
+```text
+Paper
+ │
+ ↓
+Evidence Extractor
+ │
+ ├── Study Design
+ ├── Population
+ ├── Sample Size
+ ├── Intervention / Exposure
+ ├── Comparator
+ ├── Outcomes
+ ├── Findings
+ └── Limitations
+```
+
+Evidence should retain a reference to its source paper.
+
+Example:
+
+```text
+EvidenceRecord
+    paper_id
+    study_design
+    population
+    sample_size
+    intervention
+    comparator
+    outcomes
+    findings
+    limitations
+```
+
+Missing information should remain missing.
+
+---
+
+## 14. Research Analysis
+
+Research analysis operates on structured evidence.
+
+```text
+                 Evidence
+                    │
+          ┌─────────┼─────────┐
+          ↓         ↓         ↓
+     Comparison    Gaps   Contradictions
+```
+
+### 14.1 Comparison
+
+Compare studies across:
+
+* Population
+* Study design
+* Intervention
+* Comparator
+* Sample size
+* Outcomes
+* Findings
+* Limitations
+
+### 14.2 Gap Detection
+
+Identify apparent limitations in the retrieved literature.
+
+The system must use cautious language.
+
+Example:
+
+```text
+Based on the retrieved literature,
+few studies examined...
+```
+
+Not:
+
+```text
+No research exists...
+```
+
+unless the evidence genuinely supports that conclusion.
+
+### 14.3 Contradiction Detection
+
+Identify studies with materially different findings.
+
+The system should explain possible differences using available study characteristics rather than inventing explanations.
+
+---
+
+## 15. LLM Provider Layer
+
+The LLM must be isolated behind a provider abstraction.
+
+Conceptually:
+
+```python
+class LLMProvider:
+    async def generate(...):
+        ...
+```
+
+This allows the underlying open-weight model to change without requiring changes throughout the application.
+
+The provider layer is responsible for:
+
+* Prompt construction
+* Model requests
+* Response handling
+* Streaming
+* Error handling
+* Structured output validation where required
+
+---
+
+## 16. Open-weight Model
+
+The project must use an open-weight model.
+
+The model should primarily perform:
+
+* Evidence extraction
+* Evidence comparison
+* Research synthesis
+* Structured analysis
+
+The model should not be treated as the source of truth.
+
+Academic sources are the source of truth.
+
+---
+
+## 17. Citation Grounding
+
+The synthesis pipeline should look like:
+
+```text
+Research Question
+       ↓
+Retrieved Papers
+       ↓
+Structured Evidence
+       ↓
+LLM
+       ↓
+Draft Synthesis
+       ↓
+Citation Validation
+       ↓
+Final Response
+```
+
+Citation validation should ensure:
+
+* Citation references exist
+* Citation references correspond to retrieved papers
+* Unsupported source IDs are rejected
+* The final answer does not cite papers that were not retrieved
+
+Where practical, important claims should be mapped to supporting evidence before being displayed.
+
+---
+
+## 18. Streaming
+
+The application should support streaming generated responses.
+
+Possible flow:
+
+```text
+Frontend
+   │
+   │ POST /research
+   ↓
+FastAPI
+   ↓
+Research Orchestrator
+   ↓
+Retrieval
+   ↓
+Evidence
+   ↓
+LLM
+   │
+   │ streamed tokens/events
+   ↓
+Frontend
+```
+
+SSE is the preferred initial mechanism.
+
+Streaming should improve perceived latency without making the underlying workflow unnecessarily complicated.
+
+---
+
+## 19. Error Handling
+
+External services are expected to fail occasionally.
+
+The system should handle:
+
+* API timeouts
+* Rate limits
+* Invalid responses
+* Empty search results
+* Missing abstracts
+* LLM failures
+* Provider unavailability
+
+A failure in one academic provider should not necessarily prevent results from another provider from being used.
+
+Example:
+
+```text
+PubMed ──────── SUCCESS ───────┐
+                               ├──> Research continues
+Crossref ────── FAILURE ───────┘
+```
+
+---
+
+## 20. Storage
+
+Initial storage should remain simple.
+
+Preferred initial option:
+
+```text
+SQLite
+```
+
+Potential uses:
+
+* Research sessions
+* Cached papers
+* Evidence records
+* Evaluation data
+
+Persistent storage should not become a prerequisite for the core research pipeline unless necessary.
+
+---
+
+## 21. Deployment
+
+Target deployment:
+
+```text
+Render
+```
+
+Initial deployment architecture:
+
+```text
+User
+ │
+ ↓
+Frontend
+ │
+ ↓
+FastAPI Backend
+ │
+ ├── PubMed
+ ├── Crossref
+ └── Open-weight LLM Provider
+```
+
+Avoid unnecessary infrastructure.
+
+---
+
+## 22. Low-Latency Strategy
+
+Primary latency optimizations:
+
+```text
+Concurrent retrieval
+        ↓
+Cheap ranking
+        ↓
+Process only relevant papers
+        ↓
+Minimize LLM calls
+        ↓
+Stream final generation
+```
+
+Do not optimize prematurely.
+
+Measure latency before introducing additional infrastructure.
+
+---
+
+## 23. Security
+
+Secrets must be stored through environment variables.
+
+Never commit:
+
+```text
+API keys
+Access tokens
+Passwords
+Deployment credentials
+```
+
+Provider clients should not log secrets.
+
+User-provided research queries should be treated as untrusted input.
+
+---
+
+## 24. Testing Architecture
+
+Testing should exist at multiple levels.
+
+### Unit Tests
+
+Test:
+
+* Query processing
+* Provider parsing
+* Paper normalization
+* Deduplication
+* Ranking
+* Evidence schema validation
+* Citation validation
+
+### Integration Tests
+
+Test:
+
+```text
+Query
+ ↓
+Search
+ ↓
+Normalize
+ ↓
+Rank
+ ↓
+Evidence
+```
+
+### End-to-end Tests
+
+Test the complete workflow:
+
+```text
+Research Question
+ ↓
+Academic Search
+ ↓
+Evidence
+ ↓
+Analysis
+ ↓
+LLM
+ ↓
+Citations
+ ↓
+Response
+```
+
+External APIs should be mocked in deterministic tests where appropriate.
+
+---
+
+## 25. Initial Build Strategy
+
+Build the system incrementally.
+
+### Milestone 1
+
+```text
+Research Question
+       ↓
+PubMed
+       ↓
+Normalized Papers
+```
+
+### Milestone 2
+
+```text
+Research Question
+       ↓
+PubMed + Crossref
+       ↓
+Deduplication
+       ↓
+Ranking
+```
+
+### Milestone 3
+
+```text
+Ranked Papers
+       ↓
+Evidence Extraction
+       ↓
+Structured Evidence
+```
+
+### Milestone 4
+
+```text
+Structured Evidence
+       ↓
+Open-weight LLM
+       ↓
+Citation-grounded Synthesis
+```
+
+### Milestone 5
+
+```text
+Evidence
+   ↓
+Comparison
+   ↓
+Gap Detection
+   ↓
+Contradiction Detection
+```
+
+### Milestone 6
+
+```text
+Complete Backend
+       ↓
+Streaming API
+       ↓
+Frontend
+       ↓
+Render
+```
+
+---
+
+## 26. Architecture Rules
+
+1. Keep the backend modular.
+2. Keep external providers behind interfaces.
+3. Keep the LLM behind an abstraction.
+4. Keep research logic out of the frontend.
+5. Prefer async/concurrent I/O for independent external requests.
+6. Validate structured outputs.
+7. Preserve source provenance throughout the pipeline.
+8. Never fabricate evidence or citations.
+9. Prefer graceful degradation over total failure.
+10. Avoid unnecessary infrastructure.
+11. Do not introduce autonomous agents unless a concrete requirement emerges.
+12. Keep the first implementation small enough to understand completely.
+
+The architecture should evolve based on measured requirements, not hypothetical future scale.
