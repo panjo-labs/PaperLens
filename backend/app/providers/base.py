@@ -13,7 +13,13 @@ class ProviderError(Exception):
 
 
 class AcademicSearchProvider(Protocol):
-    name: str
+    """The contract every source (PubMed, Crossref, ...) follows.
+
+    A Protocol is "if it has these members, it counts", so providers don't need to inherit
+    from anything. The rest of the app only ever talks to this interface.
+    """
+
+    name: str  # e.g. "pubmed"
 
     async def search(self, query: str) -> list[Paper]:
         """Return normalized papers, or raise ProviderError."""

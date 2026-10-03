@@ -1,0 +1,420 @@
+{
+ "status": "ok",
+ "message-type": "work-list",
+ "message-version": "1.0.0",
+ "message": {
+  "total-results": 4473124,
+  "items-per-page": 6,
+  "query": {
+   "start-index": 0,
+   "search-terms": null
+  },
+  "items": [
+   {
+    "abstract": "<jats:p>\n\t\t\t\t\t\t\t Aims: To systematically review the evidence for the effectiveness of combining cognitive behavioural therapy (CBT) and exercise versus exercise alone in the management of patients with non-specific chronic low back pain (NSCLBP). Methods: Electronic search of CINAHL, PUBMED, Sports Discuss, SCOPUS, AMED, MEDLINE, Cochrane Central Register of Controlled Trials, and EMBASE, between 1990 – July 2017; complemented by hand searching of citation lists and citation tracking. Two independent reviewers screened titles and abstracts from the retrieved search results. Studies were considered based on PRISMA guidelines. Data was extracted based on Cochrane the Handbook of Systematic Reviews guidelines; the Cochrane Data Collection Form for Intervention Reviews (RCTs only), was customized and utilized. Risk of bias assessment was undertaken utilizing the Cochrane Back Review Group recommendations employing two independent reviewers. Meta-analysis was used to produce a weighted average for primary outcome measures, namely pain and disability. Results: Four studies were included (n = 406 participants); all studies provided post intervention results on pain and disability. Meta-analysis showed no significant difference between groups for both pain and disability, post intervention in the short term (pain; SMD -0.02, 95% CI -0.23 to 0.19; disability; SMD 0.06, 95% CI -0.15 to 0.27); medium term (pain; SMD -0.01, 95% CI -0.24 to0.22; disability; SMD 0.00, 95% CI -0.23 to 0.23); and long term (pain; SMD 0.06, 95% CI -0.18 to 0.29; disability; SMD -0.06, 95% CI -0.39 to 0.27). Conclusion: The findings from this review reveal that there is no significant difference between groups; that is, there is moderate level evidence that the addition of CBT to exercise for patients with NSCLBP does not improve pain and disability outcomes in either the short, medium, or long term; however, both interventions (CBT plus exercise and exercise alone) produce favourable outcomes.\t\t\t\t\t\n\t\t\t\t\t\t</jats:p>",
+    "DOI": "10.5348/100041d05pa2018ra",
+    "type": "journal-article",
+    "title": [
+     "Comparative effectiveness of cognitive behavioural therapy combined with exercise versus exercise in the management of non-specific chronic low back pain: A systematic review with meta-analysis"
+    ],
+    "author": [
+     {
+      "given": "Paapa",
+      "family": "Kwesi Ampiah",
+      "sequence": "first",
+      "affiliation": [
+       {
+        "name": "Senior physiotherapist, Department of Physiotherapy, Ga South Municipal Hospital, Ghana Health Service, P. O. BOX 361 Mallam, Accra, Ghana"
+       }
+      ],
+      "role": [
+       {
+        "role": "author",
+        "vocabulary": "crossref"
+       }
+      ]
+     },
+     {
+      "given": "Paul",
+      "family": "Hendrick",
+      "sequence": "first",
+      "affiliation": [
+       {
+        "name": "Division of Physiotherapy and Rehabilitation Sciences, School of Health Sciences, the University of Nottingham B90, Clinical Sciences Building, City Hospital Campus, Nottingham NG5 1PB, UK"
+       }
+      ],
+      "role": [
+       {
+        "role": "author",
+        "vocabulary": "crossref"
+       }
+      ]
+     },
+     {
+      "given": "Erika",
+      "family": "Gonzalez Macias",
+      "sequence": "first",
+      "affiliation": [
+       {
+        "name": "Central Hospital Dr. Ignacio Morones Prieto, Zona Universitaria, 78290, San Luis Potosi, Mexico"
+       }
+      ],
+      "role": [
+       {
+        "role": "author",
+        "vocabulary": "crossref"
+       }
+      ]
+     }
+    ],
+    "published-online": {
+     "date-parts": [
+      [
+       2018,
+       5,
+       28
+      ]
+     ]
+    },
+    "container-title": [
+     "Edorium Journal of Disability and Rehabilitation"
+    ],
+    "issued": {
+     "date-parts": [
+      [
+       2018,
+       5,
+       28
+      ]
+     ]
+    },
+    "URL": "https://doi.org/10.5348/100041d05pa2018ra",
+    "published": {
+     "date-parts": [
+      [
+       2018,
+       5,
+       28
+      ]
+     ]
+    }
+   },
+   {
+    "DOI": "10.29011/2576-957x.100028",
+    "title": [
+     "Effectiveness of Paravertebral Ozone Therapy in Individuals with Low Back Pain with or without Radicular Pain: A Systematic Review"
+    ],
+    "container-title": [
+     "Chronic Pain &amp; Management"
+    ],
+    "issued": {
+     "date-parts": [
+      [
+       2020
+      ]
+     ]
+    },
+    "published": {
+     "date-parts": [
+      [
+       2020
+      ]
+     ]
+    },
+    "published-online": {
+     "date-parts": [
+      [
+       2020
+      ]
+     ]
+    },
+    "URL": "https://doi.org/10.29011/2576-957x.100028",
+    "type": "journal-article"
+   },
+   {
+    "abstract": "<jats:p>Background: Chronic non-specific low back pain causes significant disability worldwide. This study compared the effectiveness of core stabilization exercises versus routine exercise therapy in managing pain and functional disability.\nMethodology: A randomized controlled trial included 34 patients with chronic non-specific low back pain at Mayo Hospital, Lahore. Participants were randomly allocated to Group A (core stabilization exercises, n=17) or Group B (routine exercise therapy, n=17). Both groups received conventional hot pack therapy. Treatment was administered three times weekly for four weeks. Outcomes were measured using Visual Analogue Scale (VAS) for pain and Oswestry Disability Index (ODI) for functional disability.\nResults: Both groups showed significant improvements (p&lt;0.001). Group A demonstrated superior outcomes with post-treatment VAS scores of 1.24±0.66 versus Group B's 4.18±0.81 (mean difference 2.94, p&lt;0.001). ODI scores were 11.65±2.85 in Group A versus 21.65±2.96 in Group B (mean difference 10.00, p&lt;0.001).\nConclusion: Core stabilization exercises were significantly more effective than routine exercise therapy in reducing pain and improving functional disability in chronic non-specific low back pain patients.\nKeywords: Pain, Low back, Chronic, Stabilization, Nonspecific, Exercise, Core</jats:p>",
+    "DOI": "10.36283/pjr.zu.14.2/004",
+    "type": "journal-article",
+    "title": [
+     "Effectiveness of Core Stabilization Exercises and Routine Exercise Therapy in Management of Pain in Chronic Non-Specific Low Back Pain"
+    ],
+    "author": [
+     {
+      "ORCID": "https://orcid.org/0000-0002-8378-4773",
+      "authenticated-orcid": false,
+      "given": "Nimra",
+      "family": "Nadeem",
+      "sequence": "first",
+      "affiliation": [
+       {
+        "name": "Khadija Polyclinic, Sheikhupura, Punjab, Pakistan"
+       }
+      ],
+      "role": [
+       {
+        "vocabulary": "crossref",
+        "role": "author"
+       }
+      ]
+     },
+     {
+      "ORCID": "https://orcid.org/0000-0001-5926-9504",
+      "authenticated-orcid": false,
+      "given": "Urooj",
+      "family": "Shabbir",
+      "sequence": "additional",
+      "affiliation": [
+       {
+        "name": "Salford University Manchester, United Kingdom."
+       }
+      ],
+      "role": [
+       {
+        "vocabulary": "crossref",
+        "role": "author"
+       }
+      ]
+     },
+     {
+      "ORCID": "https://orcid.org/0000-0002-4287-0878",
+      "authenticated-orcid": false,
+      "given": "Ramzan",
+      "family": "Zafar",
+      "sequence": "additional",
+      "affiliation": [
+       {
+        "name": "Sardar G child Specialist Clinic, Lahore, Pakistan"
+       }
+      ],
+      "role": [
+       {
+        "vocabulary": "crossref",
+        "role": "author"
+       }
+      ]
+     }
+    ],
+    "published-online": {
+     "date-parts": [
+      [
+       2025,
+       7,
+       7
+      ]
+     ]
+    },
+    "container-title": [
+     "Pakistan Journal of Rehabilitation"
+    ],
+    "issued": {
+     "date-parts": [
+      [
+       2025,
+       7,
+       7
+      ]
+     ]
+    },
+    "URL": "https://doi.org/10.36283/pjr.zu.14.2/004",
+    "published": {
+     "date-parts": [
+      [
+       2025,
+       7,
+       7
+      ]
+     ]
+    }
+   },
+   {
+    "published-print": {
+     "date-parts": [
+      [
+       2022,
+       11
+      ]
+     ]
+    },
+    "DOI": "10.1016/j.explore.2022.08.012",
+    "type": "journal-article",
+    "title": [
+     "Exercise therapy for chronic low back pain: Summary of a Cochrane review"
+    ],
+    "author": [
+     {
+      "given": "Yuko",
+      "family": "Ohta",
+      "sequence": "first",
+      "affiliation": [],
+      "role": [
+       {
+        "role": "author",
+        "vocabulary": "crossref"
+       }
+      ]
+     }
+    ],
+    "container-title": [
+     "EXPLORE"
+    ],
+    "issued": {
+     "date-parts": [
+      [
+       2022,
+       11
+      ]
+     ]
+    },
+    "URL": "https://doi.org/10.1016/j.explore.2022.08.012",
+    "published": {
+     "date-parts": [
+      [
+       2022,
+       11
+      ]
+     ]
+    }
+   },
+   {
+    "published-print": {
+     "date-parts": [
+      [
+       2009,
+       6
+      ]
+     ]
+    },
+    "DOI": "10.1211/fact.14.2.0019",
+    "type": "journal-article",
+    "title": [
+     "Comparing the effectiveness of traditional bone setting with physical and exercise therapy for the treatment of chronic low back pain"
+    ],
+    "published-online": {
+     "date-parts": [
+      [
+       2010,
+       6,
+       3
+      ]
+     ]
+    },
+    "container-title": [
+     "Focus on Alternative and Complementary Therapies"
+    ],
+    "issued": {
+     "date-parts": [
+      [
+       2009,
+       6
+      ]
+     ]
+    },
+    "URL": "https://doi.org/10.1211/fact.14.2.0019",
+    "published": {
+     "date-parts": [
+      [
+       2009,
+       6
+      ]
+     ]
+    }
+   },
+   {
+    "abstract": "<jats:p>Chronic low back pain (CLBP) is one of the most prevalent musculoskeletal conditions and a leading cause of disability worldwide, significantly affecting quality of life and functional ability. It is a complex pain syndrome influenced by a combination of biomechanical, psychological, and social factors, requiring comprehensive and evidence-based management strategies. Non-pharmacological interventions, particularly manual therapy and exercise therapy, are widely used in clinical practice for the management of CLBP. Manual therapy, including spinal manipulation, mobilization, and soft tissue techniques, is primarily associated with short-term pain relief and improvements in mobility through neurophysiological and mechanical effects. In contrast, exercise therapy, which includes strengthening, stabilization, and motor control exercises, plays a crucial role in long-term management by improving functional capacity, reducing disability, and preventing recurrence. Evidence from randomized controlled trials and systematic reviews indicates that both interventions are effective; however, exercise therapy demonstrates greater benefits for sustained outcomes, while manual therapy serves as an important adjunct for immediate symptom relief. Furthermore, combined treatment approaches integrating manual therapy and exercise therapy appear to provide superior results by addressing both short-term pain reduction and long-term rehabilitation. Recent advances in digital rehabilitation, wearable sensors, tele-rehabilitation, and artificial intelligence-assisted pain monitoring may further improve assessment, adherence tracking, treatment personalization, and long-term functional outcome evaluation in CLBP. Therefore, an individualized and integrated treatment strategy is recommended to optimize patient outcomes in the management of chronic low back pain. Such an approach aligns conventional rehabilitation with emerging technologies in orthopedic and pain science.</jats:p>",
+    "DOI": "10.1922/pjs.16.1s.2026.518",
+    "type": "journal-article",
+    "title": [
+     "Effectiveness of Manual Therapy Versus Exercise Therapy in Chronic Low Back Pain: A Randomized Controlled Trial"
+    ],
+    "author": [
+     {
+      "family": "Dr Ananya Sharma",
+      "sequence": "first",
+      "affiliation": [],
+      "role": [
+       {
+        "vocabulary": "crossref",
+        "role": "author"
+       }
+      ]
+     },
+     {
+      "family": "Dr Debasish Bora",
+      "sequence": "additional",
+      "affiliation": [],
+      "role": [
+       {
+        "vocabulary": "crossref",
+        "role": "author"
+       }
+      ]
+     },
+     {
+      "family": "B. Dr. Preeti Saini",
+      "sequence": "additional",
+      "affiliation": [],
+      "role": [
+       {
+        "vocabulary": "crossref",
+        "role": "author"
+       }
+      ]
+     },
+     {
+      "family": "Dr Shailja Lakhanpal",
+      "sequence": "additional",
+      "affiliation": [],
+      "role": [
+       {
+        "vocabulary": "crossref",
+        "role": "author"
+       }
+      ]
+     },
+     {
+      "family": "Shivam Agarwal",
+      "sequence": "additional",
+      "affiliation": [],
+      "role": [
+       {
+        "vocabulary": "crossref",
+        "role": "author"
+       }
+      ]
+     }
+    ],
+    "published-online": {
+     "date-parts": [
+      [
+       2026,
+       6,
+       12
+      ]
+     ]
+    },
+    "container-title": [
+     "PAIN, JOINTS, SPINE"
+    ],
+    "issued": {
+     "date-parts": [
+      [
+       2026,
+       6,
+       12
+      ]
+     ]
+    },
+    "URL": "https://doi.org/10.1922/pjs.16.1s.2026.518",
+    "published": {
+     "date-parts": [
+      [
+       2026,
+       6,
+       12
+      ]
+     ]
+    }
+   }
+  ]
+ }
+}

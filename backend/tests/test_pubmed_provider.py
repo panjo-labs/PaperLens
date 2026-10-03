@@ -226,7 +226,7 @@ def slept(monkeypatch):
     async def fake_sleep(seconds):
         delays.append(seconds)
 
-    monkeypatch.setattr("app.providers.pubmed._sleep", fake_sleep)
+    monkeypatch.setattr("app.providers.http._sleep", fake_sleep)
     return delays
 
 
