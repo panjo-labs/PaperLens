@@ -66,7 +66,7 @@ Commits are on `main` (see section 11). Hashes verified with `git log`.
 - **Also in this commit:** plain-language comments across `app/`, and a fix so abstract cleaning is linear-time on malformed markup.
 - **Verified by:** recorded real Crossref fixture, mocked failure/timeout/429 tests, mutation checks that sequential execution fails the concurrency tests.
 
-### Slice 2B: deduplication and ranking (commit `81c423f`, local only, not pushed)
+### Slice 2B: deduplication and ranking (commit `81c423f`, pushed)
 - **Deduplicator:** union-find over keys, O(n): normalized DOI, then PMID (from `source_ids`), then exact normalized title **only for records with neither**.
   Merge keeps the first record's id and the most complete metadata; `Paper.source_ids` records provenance.
 - **Ranker:** `0.75 x title coverage + 0.25 x abstract coverage` over non-stopword terms (plural folding, abstract credit capped at 3 mentions); deterministic
@@ -74,11 +74,11 @@ Commits are on `main` (see section 11). Hashes verified with `git log`.
 - **Evaluation:** `backend/evaluation/` (10 questions, frozen provider snapshot `pools.json`, 80 judged-relevant papers). Result: ranker is **about equal to
   PubMed's own order** (means baseline vs ranked: recall@5 0.26/0.28, recall@10 0.43/0.48, recall@20 0.74/0.64, MRR 0.71/0.63; `evaluation/RESULTS.md`).
 
-### Provider rank preservation (commit `af40a9c`, local only, not pushed)
+### Provider rank preservation (commit `af40a9c`, pushed)
 - `Paper.provider_ranks` e.g. `{"pubmed": 3, "crossref": 12}`: each provider's own position, kept through combine -> dedup (best rank per provider on merge)
   -> ranking. **Stored but not used for ordering**; intended for future rank fusion. Tests: `tests/test_provider_rank_preservation.py`.
 
-### Slice 3: evidence extraction (commit `75cb424`, local only, not pushed; see section 5)
+### Slice 3: evidence extraction (commit `75cb424`, pushed; see section 5)
 - Also committed separately: `7cad0af` fixes Crossref abstracts whose paragraph tags were entity-encoded (`&lt;p&gt;`).
 
 ## 4. Current state
@@ -200,16 +200,16 @@ Source of truth for this section: `PROJECT_SPEC.md` (sections 4.7, 6, 7), `ARCHI
 
 ## 10. Current milestone
 
-- **CURRENT:** Slice 3 (structured evidence extraction) is **complete and committed locally** (`75cb424`). It has not been pushed and has not had an independent review.
+- **CURRENT:** Slice 3 (structured evidence extraction) is **complete, committed (`75cb424`) and pushed**. It has not had an independent review.
 - **NEXT (per `TODO.md`, only if the user instructs):** Slice 4, an LLM provider abstraction with an open-weight model, a model-backed extractor for what rules cannot do,
   citation-grounded synthesis and citation validation. Later: comparison / contradiction / gap analysis, SSE streaming, frontend, Render deployment, whole-pipeline evaluation.
-- **Housekeeping pending:** push the local commits to `origin` (the user has not yet asked for a push).
+- **Housekeeping pending:** none known. Check `git status` and `git log origin/main..HEAD` for anything newer than this file.
 
 ## 11. Git state (as of this snapshot)
 
-- Branch `main`, remote `origin` = `https://github.com/panjo-labs/PaperLens.git`. `origin/main` is at `e82ad67`; local `main` is **5 commits ahead**, all unpushed
-  (including the docs commit that contains this file). The working tree is clean after that commit.
-- Commits, oldest first: `263d9a6` Initial commit (LICENSE, .gitignore from GitHub) -> `d612a76` Slice 1 -> `e82ad67` Slice 2A (pushed up to here) -> `81c423f` Slice 2B ->
+- Branch `main`, remote `origin` = `https://github.com/panjo-labs/PaperLens.git`. Everything up to commit `8cb648a` is **pushed**; `origin/main` contained it when this
+  file was last updated. Later commits (at least the one that records this) may exist: verify with `git log origin/main..HEAD`. The working tree was clean after committing.
+- Commits, oldest first: `263d9a6` Initial commit (LICENSE, .gitignore from GitHub) -> `d612a76` Slice 1 -> `e82ad67` Slice 2A -> `81c423f` Slice 2B ->
   `af40a9c` provider ranks -> `7cad0af` Crossref entity-encoded tag fix -> `75cb424` Slice 3 evidence extraction -> a final docs commit: `ARCHITECTURE.md` and `PROJECT_SPEC.md`
   (renamed with `git mv` from the misnamed `architecture,md.txt` and `project_spec.md.txt`; history preserved), `TODO.md`, and this file.
 - No existing test was modified or removed in the Slice 3 work except additions (verified: 0 removed lines in existing tests).
