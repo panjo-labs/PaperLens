@@ -43,3 +43,25 @@ the top. It is deliberately lightweight: a baseline we can improve against, not 
 * **Tiny sample.** 10 questions and 80 judged papers: differences of a few hundredths are noise.
 * Do not tune the ranker against these 10 questions and then treat the result as proof of quality; add new
   questions (or hold some out) before drawing conclusions.
+
+---
+
+# Evidence extraction evaluation (Slice 3)
+
+Separate from the retrieval evaluation above. It checks the rule-based evidence extractor against abstracts that were read by hand.
+
+| File | What it is |
+|---|---|
+| `evidence_gold.json` | **Development set**: 10 papers drawn at random (seed 2026) from snapshot papers with an abstract, with expected values written from the text before the extractor was run on them |
+| `evidence_holdout.json` | **Holdout set**: 8 more papers (seed 7001, none from the development set), expected values written before running the extractor |
+| `run_evidence_eval.py` | Offline runner: `python evaluation/run_evidence_eval.py [--holdout] [--write]` |
+| `EVIDENCE_RESULTS.md` | Combined report, written by `--write` |
+
+Per field the outcome is one of: **correct**, **correct-null** (the abstract does not say it and the extractor correctly said "unavailable"),
+**missed**, **wrong**, **fabricated** (a value where the abstract says nothing: the worst case). The runner also audits **all ~390 snapshot
+papers** to confirm that every extracted value literally occurs in the text it cites, and reports field availability and latency.
+
+**Read the results carefully.** The development set was used to fix defects, so its score is optimistic. The holdout's *first* measurement
+(before any change made after seeing it) is the honest estimate: 47/64 fields correct (73%). Later holdout numbers are no longer unbiased.
+With 8-10 abstracts, differences of a few points are noise, and the expected values are one reviewer's reading: please check them.
+

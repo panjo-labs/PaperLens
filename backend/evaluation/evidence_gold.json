@@ -1,0 +1,132 @@
+{
+  "how_this_was_made": "10 papers drawn at random (seed 2026) from the 263 unique papers WITH abstracts in pools.json. For each, the full abstract was read and the values below were written from the TEXT ALONE, before the extractor was run on these papers. null means the abstract (or title, for study_design/population) does not clearly establish the value. These are one reviewer's readings: please check them.",
+  "scoring": {
+    "study_design": "exact match with the extractor's label; null expects 'unavailable'",
+    "participants / studies": "exact integer; null expects 'unavailable'. Numbers written in words ARE expected to be found (they are stated in the abstract), so a digit-only extractor will miss them",
+    "population / intervention / comparator / outcomes": "list of keywords that must ALL appear (case-insensitive) in the extracted text; null expects 'unavailable'",
+    "statistics": "statistics written in the supported formats (p-values, 95% CI, effect-size letters such as g/d/SMD/OR); recall = found / expected. 'mean difference = 1.2' written in words is out of scope",
+    "limitations_stated": "true only if the abstract states a limitation OF THIS STUDY"
+  },
+  "papers": [
+    {
+      "id": "crossref:10.5539/ass.v12n3p207",
+      "study_design": "quasi-experimental study",
+      "participants": null, "studies": null,
+      "population": ["students"],
+      "intervention": ["blended learning"],
+      "comparator": ["traditional teaching"],
+      "outcomes": ["results"],
+      "statistics": [],
+      "limitations_stated": false,
+      "notes": "Says 'quasi-experimental, descriptive and correlational design'. No sample size given. Outcome is only 'students' results' / 'academic success' (vague)."
+    },
+    {
+      "id": "pubmed:35354406",
+      "study_design": null,
+      "participants": 4935, "studies": null,
+      "population": ["medical students"],
+      "intervention": null,
+      "comparator": null,
+      "outcomes": ["anxiety", "academic performance"],
+      "statistics": ["43.4%", "56.6%", "13.0%", "87.0%", "54.6%", "63%"],
+      "limitations_stated": false,
+      "notes": "An online survey; the design is never named, so null. 4935 is the number of 'responses' (survey respondents), not 'participants': ambiguous. 'Medical students reported various limitations' is about online education, NOT a limitation of this study."
+    },
+    {
+      "id": "pubmed:41720248",
+      "study_design": "randomized controlled trial",
+      "participants": 75, "studies": null,
+      "population": ["adults", "SAPS"],
+      "intervention": ["thoracic extension exercises"],
+      "comparator": ["shoulder exercises"],
+      "outcomes": ["pain", "disability", "range of motion", "strength"],
+      "statistics": ["P < .05", "P > .05"],
+      "limitations_stated": false,
+      "notes": "'Seventy-five adults' is written in words. Comparator is the shoulder-exercise-only group ('group C received only SE'). 'Longer-term studies are warranted' is a suggestion, not a stated limitation."
+    },
+    {
+      "id": "pubmed:9394089",
+      "study_design": null,
+      "participants": 44, "studies": null,
+      "population": ["college students"],
+      "intervention": ["sleep deprivation"],
+      "comparator": ["8 hours of sleep"],
+      "outcomes": ["cognitive performance"],
+      "statistics": [],
+      "limitations_stated": false,
+      "notes": "An experiment but randomisation is never stated, so no design label applies. Old (1997) single-paragraph abstract."
+    },
+    {
+      "id": "crossref:10.36283/pjr.zu.14.2/004",
+      "study_design": "randomized controlled trial",
+      "participants": 34, "studies": null,
+      "population": ["chronic non-specific low back pain"],
+      "intervention": ["core stabilization exercises"],
+      "comparator": ["routine exercise therapy"],
+      "outcomes": ["pain", "functional disability"],
+      "statistics": ["p<0.001"],
+      "limitations_stated": false,
+      "notes": "Group sizes n=17 and n=17 are also given; the total (34) is stated in 'included 34 patients'."
+    },
+    {
+      "id": "pubmed:30097811",
+      "study_design": "systematic review with meta-analysis",
+      "participants": 345, "studies": 13,
+      "population": ["type 2 diabetes"],
+      "intervention": ["high-intensity interval training"],
+      "comparator": ["moderate-intensity training"],
+      "outcomes": ["glycemic control", "cardiorespiratory fitness"],
+      "statistics": ["P = 0.02", "P = 0.04", "P < 0.0001", "P < 0.00001"],
+      "limitations_stated": false,
+      "notes": "'Thirteen trials involving 345 patients': the study count is a number word. CIs are written '95% confidence interval [CI] - 2.23 to - 0.18' (unusual spacing), so are not listed."
+    },
+    {
+      "id": "pubmed:38781520",
+      "study_design": "systematic review with meta-analysis",
+      "participants": 6528, "studies": 61,
+      "population": ["cancer patients"],
+      "intervention": ["pharmacological"],
+      "comparator": null,
+      "outcomes": ["insomnia severity"],
+      "statistics": ["g = 0.86", "95% confidence interval [CI] = 0.57 to 1.15", "g = 0.55", "95% CI = 0.18 to 0.92"],
+      "limitations_stated": false,
+      "notes": "Many interventions are compared with each other; no single comparator is named at design level, so null. '[CI]' inside the interval text is an unusual format."
+    },
+    {
+      "id": "pubmed:41037777",
+      "study_design": "randomized controlled trial",
+      "participants": 90, "studies": null,
+      "population": ["pregnant women"],
+      "intervention": ["Avecmom"],
+      "comparator": ["Big 4+"],
+      "outcomes": ["depressive symptoms", "anxiety", "stress"],
+      "statistics": ["P=.02", "P=.001", "P=.004", "P=.009"],
+      "limitations_stated": false,
+      "notes": "AMBIGUOUS sample size: 158 screened, 90 randomized, 86 analysed. 90 (randomized) is the expected answer. 'limitations of medication use' (background) is not a study limitation."
+    },
+    {
+      "id": "pubmed:39275840",
+      "study_design": "randomized controlled trial",
+      "participants": 145, "studies": null,
+      "population": ["low back pain"],
+      "intervention": ["Pilates"],
+      "comparator": ["home-based exercise"],
+      "outcomes": ["pain intensity", "disability", "health-related quality of life"],
+      "statistics": ["95% CI -2.05; -0.23", "95% CI -11.3; -2.0", "95% CI 0.003; 0.106", "95% CI -7.6; -1.1", "95% CI 0.022; 0.076"],
+      "limitations_stated": false,
+      "notes": "'One hundred and forty-five individuals' is in words; group sizes (n = 72, n = 73) are in digits, and the total must not be guessed by adding them."
+    },
+    {
+      "id": "pubmed:31072557",
+      "study_design": null,
+      "participants": null, "studies": null,
+      "population": null,
+      "intervention": null,
+      "comparator": null,
+      "outcomes": null,
+      "statistics": [],
+      "limitations_stated": false,
+      "notes": "A book-chapter review ('we review current research') with no methods: no design label applies, no population studied, no sample size. A good test that nothing is invented."
+    }
+  ]
+}

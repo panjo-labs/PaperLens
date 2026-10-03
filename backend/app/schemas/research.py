@@ -2,6 +2,7 @@ from typing import Literal
 
 from pydantic import BaseModel, Field
 
+from app.schemas.evidence import Evidence
 from app.schemas.paper import Paper
 
 
@@ -28,3 +29,7 @@ class ResearchResponse(BaseModel):
     queries_used: list[str]  # the cleaned-up search text actually sent to the providers
     papers: list[Paper]  # all providers' papers combined
     provider_status: dict[str, ProviderStatus]  # one entry per provider, e.g. "pubmed", "crossref"
+    # Structured evidence per paper, keyed by Paper.id and listed in the same order as `papers`. Kept
+    # separate from `papers` so the retrieval model stays provider-neutral. A paper missing from this
+    # dict means extraction failed for it (it is never filled with a guess).
+    evidence: dict[str, Evidence] = Field(default_factory=dict)

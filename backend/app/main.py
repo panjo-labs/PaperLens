@@ -9,6 +9,7 @@ from app.api.research import router as research_router
 from app.config import Settings, get_settings
 from app.providers.crossref import CrossrefProvider
 from app.providers.pubmed import PubMedProvider
+from app.services.evidence.rule_based import RuleBasedEvidenceExtractor
 from app.services.orchestrator import ResearchOrchestrator
 
 
@@ -28,6 +29,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
             app.state.orchestrator = ResearchOrchestrator(
                 [PubMedProvider(client, resolved), CrossrefProvider(client, resolved)],
                 provider_time_budget=resolved.provider_time_budget_seconds,
+                evidence_extractor=RuleBasedEvidenceExtractor(),  # deterministic, no model, no network
             )
             yield
 

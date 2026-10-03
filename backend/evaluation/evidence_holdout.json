@@ -1,0 +1,101 @@
+{
+  "how_this_was_made": "HOLDOUT set: 8 papers drawn at random (seed 7001) from the unique snapshot papers that have an abstract and are NOT in evidence_gold.json (the development set). The abstracts were read and these values written BEFORE the extractor was run on them, and the extractor was NOT changed after seeing its first result on this set when that first result was recorded (see EVIDENCE_RESULTS.md). Same scoring rules as evidence_gold.json. One reviewer's reading: please check.",
+  "papers": [
+    {
+      "id": "crossref:10.21926/obm.icm.2601004",
+      "study_design": null,
+      "participants": null, "studies": null,
+      "population": ["older adults"],
+      "intervention": ["webinar series"],
+      "comparator": null,
+      "outcomes": ["depression", "pain", "well-being"],
+      "statistics": ["p ≤ 0.000", "p ≤ 0.02", "32.6%"],
+      "limitations_stated": false,
+      "notes": "'within-participant prospective design' is not one of the design labels. AMBIGUOUS sample: 288 interested, 138 qualified, 42 completed; none is called the total, so null. Outcomes are listed as 'effectiveness in improving symptoms of depression, pain, quality of sleep, well-being...' (no 'outcomes were' wording)."
+    },
+    {
+      "id": "pubmed:37389837",
+      "study_design": "systematic review with meta-analysis",
+      "participants": 213, "studies": 5,
+      "population": ["TMDs"],
+      "intervention": ["manual therapy"],
+      "comparator": ["placebo"],
+      "outcomes": ["pain intensity", "pressure pain threshold", "mouth opening", "jaw function"],
+      "statistics": ["95% CI: -2.8 to -0.9", "95% CI: 0.02 to 1.26", "95% CI: 0.3 to 1.0", "90%"],
+      "limitations_stated": false,
+      "notes": "'five trials' is a single-digit number word (the extractor deliberately does not convert a lone 'one'..'nine'). 'standardized mean difference: 0.65' is out of scope."
+    },
+    {
+      "id": "pubmed:25818837",
+      "study_design": "systematic review with meta-analysis",
+      "participants": 2668, "studies": 29,
+      "population": ["healthy"],
+      "intervention": ["MBSR"],
+      "comparator": null,
+      "outcomes": ["stress", "anxiety"],
+      "statistics": ["g=.55", "p<.00001", "g=.53"],
+      "limitations_stated": false,
+      "notes": "The abstract text says 'A systematic review of studies...' but only the TITLE says 'meta-analysis' (the abstract reports pooled effect sizes without using the word), so the abstract alone gives 'systematic review'. Confidence intervals are written '95% CI [.44, .66]' (unsupported format, not listed)."
+    },
+    {
+      "id": "pubmed:40816302",
+      "study_design": "randomized controlled trial",
+      "participants": 68, "studies": null,
+      "population": ["knee osteoarthritis"],
+      "intervention": ["foot progression angle"],
+      "comparator": ["sham"],
+      "outcomes": ["knee pain", "knee loading"],
+      "statistics": ["p=0·0013", "p=0·0001", "95% CI -1·9 to -0·5", "95% CI -0·39 to -0·13"],
+      "limitations_stated": false,
+      "notes": "AMBIGUOUS sample size: 1582 screened, 107 did the initial analysis, 68 randomized. 68 is the expected answer. Decimals use a middle dot ('0·0013', Lancet style): a robust extractor must not truncate them to 'p=0'."
+    },
+    {
+      "id": "pubmed:36350591",
+      "study_design": "randomized controlled trial",
+      "participants": 276, "studies": null,
+      "population": ["anxiety disorder"],
+      "intervention": ["MBSR"],
+      "comparator": ["escitalopram"],
+      "outcomes": ["anxiety"],
+      "statistics": ["P = .65", "95% CI, -0.38 to 0.23", "78.6%", "15.4%"],
+      "limitations_stated": false,
+      "notes": "AMBIGUOUS sample size: 430 assessed, 276 recruited, 208 completed. 276 (recruited and randomized) is the expected answer."
+    },
+    {
+      "id": "pubmed:39050541",
+      "study_design": null,
+      "participants": null, "studies": null,
+      "population": null,
+      "intervention": null,
+      "comparator": null,
+      "outcomes": null,
+      "statistics": [],
+      "limitations_stated": false,
+      "notes": "A conceptual review ('This review examines...') with no methods, population or measured outcomes; no design label applies. A test that nothing is invented."
+    },
+    {
+      "id": "pubmed:28366674",
+      "study_design": "narrative review",
+      "participants": null, "studies": 14,
+      "population": ["type 2 diabetes"],
+      "intervention": ["high-intensity interval training"],
+      "comparator": null,
+      "outcomes": null,
+      "statistics": [],
+      "limitations_stated": true,
+      "notes": "The TITLE says 'A Narrative Review', so the label is only INFERRED; the abstract itself says databases 'were searched', which also appears in systematic reviews. 'Fourteen studies' is a number word. The abstract states that heterogeneity 'prevented direct comparisons' (a limitation of the evidence), without the word 'limitation'."
+    },
+    {
+      "id": "pubmed:37268949",
+      "study_design": "cohort study",
+      "participants": null, "studies": null,
+      "population": ["students"],
+      "intervention": ["multimodal teaching methods"],
+      "comparator": null,
+      "outcomes": ["student performance"],
+      "statistics": ["p < 0.05", "p < 0.001", "p = 0.034", "p = 0.043", "75%"],
+      "limitations_stated": false,
+      "notes": "'traditional teaching' appears only in the title as a contrast, not as a stated comparator in the abstract."
+    }
+  ]
+}
